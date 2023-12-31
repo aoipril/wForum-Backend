@@ -1,0 +1,11 @@
+[package]
+name = "prisma"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# The `prisma-client-rust-cli` dependency.
+# This dependency is a Prisma client for Rust.
+# It is fetched from a Git repository.
+# The `tag` field specifies the version of the dependency to use.
+prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10" }

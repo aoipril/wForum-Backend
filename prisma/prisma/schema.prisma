@@ -1,0 +1,158 @@
+// The `generator` block.
+// This block specifies the settings for the Prisma client generator.
+generator client {
+  // The `provider` field specifies the generator to be used.
+  // In this case, it is set to "cargo run".
+  provider    = "cargo run"
+  // The `output` field specifies the output directory for the generated Prisma client.
+  // The client will be generated in the "../../src/prisma/prisma.rs" directory.
+  output      = "../../src/prisma/prisma.rs"
+  // The `module_path` field specifies the module path for the generated Prisma client.
+  module_path = "generated::db"
+}
+
+// The `datasource` block.
+// This block specifies the settings for the database connection.
+datasource db {
+  // The `provider` field specifies the database provider to be used.
+  // In this case, it is set to "postgresql".
+  provider = "postgresql"
+  // The `url` field specifies the connection string for the database.
+  // It is set to the value of the "DATABASE_URL" environment variable.
+  url      = env("DATABASE_URL")
+}
+
+// 用户信息表
+model UserDetails {
+  userId    Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  createdAt DateTime @default(now())
+  intro     String?
+  avatar    String?
+
+  // 关联用户密码表
+  UserPassword UserPassword? @relation("UserPassword")
+
+  // 关联平台文章表
+  author PlatformPosts[] @relation("PostAuthor")
+
+  // 关联文章评论表
+  comments PostComments[] @relation("UserComment")
+
+  // 关联用户关注表 (作为关注者)
+  followers UserFollows[] @relation("Follower")
+
+  // 关联用户关注表 (作为被关注者)
+  followedBy UserFollows[] @relation("Followed")
+
+  // 关联用户拉黑表 (作为拉黑者)
+  blockedUsers UserBlocks[] @relation("Blocker")
+
+  // 关联用户拉黑表 (作为被拉黑者)
+  blockedByUsers UserBlocks[] @relation("Blocked")
+
+  // 关联用户点赞表
+  likedPosts UserLikePosts[] @relation("UserLike")
+
+  // 关联记录表
+  historyPosts UserHistory[] @relation("UserHistory")
+}
+
+// 用户密码表
+model UserPassword {
+  userId       Int    @id
+  hashPassword String
+
+  // 外键关联到用户信息表
+  user UserDetails @relation("UserPassword", fields: [userId], references: [userId])
+}
+
+// 用户关注表
+model UserFollows {
+  followerId Int
+  followedId Int
+
+  // 外键关联到用户信息表
+  follower UserDetails @relation("Follower", fields: [followerId], references: [userId])
+  // 外键关联到用户信息表
+  followed UserDetails @relation("Followed", fields: [followedId], references: [userId])
+
+  @@id([followerId, followedId])
+}
+
+// 用户拉黑表
+model UserBlocks {
+  blockerId Int
+  blockedId Int
+
+  // 外键关联到用户信息表
+  blocker UserDetails @relation("Blocker", fields: [blockerId], references: [userId])
+  // 外键关联到用户信息表
+  blocked UserDetails @relation("Blocked", fields: [blockedId], references: [userId])
+
+  @@id([blockerId, blockedId])
+}
+
+// 平台文章表
+model PlatformPosts {
+  postId      Int      @id @default(autoincrement())
+  authorId    Int
+  title       String
+  description String
+  content     String
+  likeCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  // 关联用户信息表
+  author UserDetails @relation("PostAuthor", fields: [authorId], references: [userId])
+
+  // 关联文章评论表
+  comments PostComments[] @relation("PostComment")
+
+  // 关联用户点赞表
+  likedByUsers UserLikePosts[] @relation("PostLike")
+
+  // 关联记录表
+  userHistory UserHistory[] @relation("PostHistory")
+}
+
+// 文章评论表
+model PostComments {
+  commentId Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  content   String
+  createdAt DateTime @default(now())
+
+  // 外键关联到用户信息表
+  user UserDetails   @relation("UserComment", fields: [userId], references: [userId])
+  // 外键关联到平台文章表
+  post PlatformPosts @relation("PostComment", fields: [postId], references: [postId])
+}
+
+// 用户点赞表
+model UserLikePosts {
+  userId Int
+  postId Int
+
+  // 外键关联到用户信息表
+  user UserDetails   @relation("UserLike", fields: [userId], references: [userId])
+  // 外键关联到平台文章表
+  post PlatformPosts @relation("PostLike", fields: [postId], references: [postId])
+
+  @@id([userId, postId])
+}
+
+// 记录表
+model UserHistory {
+  userId Int
+  postId Int
+
+  // 外键关联到用户信息表
+  user UserDetails   @relation("UserHistory", fields: [userId], references: [userId])
+  // 外键关联到平台文章表
+  post PlatformPosts @relation("PostHistory", fields: [postId], references: [postId])
+
+  @@id([userId, postId])
+}

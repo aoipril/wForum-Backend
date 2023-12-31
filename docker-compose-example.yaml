@@ -1,0 +1,38 @@
+# The `version` field.
+# This field specifies the version of the Docker Compose file format.
+version: '3'
+
+# The `services` field.
+# This field defines the services that make up the application.
+services:
+  # The `PostgreSQL` service.
+  # This service runs a PostgreSQL database server.
+  PostgreSQL:
+    # The `image` field.
+    # This field specifies the Docker image to use for the service.
+    # In this case, it is set to the latest version of the official PostgreSQL image.
+    image: postgres:latest
+    # The `container_name` field.
+    # This field specifies a custom name for the container.
+    container_name: PostgreSQL
+    # The `restart` field.
+    # This field specifies the restart policy for the service.
+    # In this case, it is set to "no", which means the service will not be restarted when it exits.
+    restart: no
+    # The `environment` field.
+    # This field specifies environment variables for the service.
+    # In this case, it sets the PostgreSQL username, password, and database name.
+    environment:
+      POSTGRES_USER: trapziu
+      POSTGRES_PASSWORD: My5tr0ng%Pa55w0rd
+      POSTGRES_DB: trapziu
+    # The `ports` field.
+    # This field maps ports between the host and the container.
+    # In this case, it maps port 5432 in the container to port 5432 on the host.
+    ports:
+      - '5432:5432'
+    # The `volumes` field.
+    # This field mounts host paths or named volumes into the container.
+    # In this case, it mounts the "./Postgresql_data" directory on the host to the "/var/lib/postgresql/data" directory in the container.
+    volumes:
+      - ./Postgresql_data:/var/lib/postgresql/data

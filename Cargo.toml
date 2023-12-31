@@ -1,0 +1,38 @@
+[package]
+name = "trapziu_backend"
+version = "0.1.0"
+edition = "2021"
+
+# The `[workspace]` section.
+# This section defines a workspace, a set of packages that share the same Cargo.lock and output directory.
+[workspace]
+# The `members` field lists the paths to the member packages of the workspace.
+members = ["prisma"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# The `prisma-client-rust-cli` dependency.
+# This dependency is a Prisma client for Rust.
+# It is fetched from a Git repository.
+# The `tag` field specifies the version of the dependency to use.
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10" }
+
+axum = { version = "0.7.2"}
+axum-swagger-ui = { version = "0.3.0"}
+serde = "1.0.193"
+serde_json = { version = "1.0.108"}
+tracing = { version = "0.1.40"}
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"]}
+tower = { version = "0.4.13", features = ["timeout"] }
+tower-http = { version = "0.5.0", features = ["cors", "trace"]}
+
+rand = { version = "0.8.5"}
+argon2 = { version = "0.5.2"}
+dotenv = { version = "0.15.0"}
+env_logger = { version = "0.10.1"}
+jsonwebtoken = { version = "9.2.0"}
+anyhow = { version = "1.0.75"}
+thiserror = { version = "1.0.50"}
+lazy_static = { version = "1.4.0", features = [] }
+tokio = { version = "1.35.0", features = ["full"] }
