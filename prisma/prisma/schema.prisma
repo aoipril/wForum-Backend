@@ -29,7 +29,7 @@ model UserDetails {
   username  String   @unique
   createdAt DateTime @default(now())
   intro     String?
-  avatar    String?
+  avatar    String?  @default("https://www.rust-lang.org/static/images/rust-logo-blk.svg")
 
   // 关联用户密码表
   UserPassword UserPassword? @relation("UserPassword")
