@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "<>",
+		"_postman_id": "",
 		"name": "trapziu",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "<>"
+		"_exporter_id": ""
 	},
 	"item": [
 		{
@@ -51,13 +51,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/users",
+							"raw": "{{Trapziu_backend_api}}/users",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -72,6 +70,10 @@
 							"script": {
 								"exec": [
 									"const res = pm.response.json()",
+									"if (res.user.email) {",
+									"    postman.setEnvironmentVariable(\"email\", res.user.email);",
+									"",
+									"}",
 									"if (res.user.username) {",
 									"    postman.setEnvironmentVariable(\"username\", res.user.username);",
 									"}",
@@ -97,13 +99,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/users",
+							"raw": "{{Trapziu_backend_api}}/users",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -141,7 +141,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\":{\n        \"intro\":\"<optional>\"\n    }\n}",
+							"raw": "{\n    \"user\":{\n        \"intro\":\"Test update on intro\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,13 +149,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/users",
+							"raw": "{{Trapziu_backend_api}}/users",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -187,7 +185,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": {\n        \"email\": \"user.user\",\n        \"username\": \"user.user\",\n        \"password\": \"user.user\"\n    }\n}",
+							"raw": "{\n    \"user\": {\n        \"email\": \"test@test.com\",\n        \"username\": \"test\",\n        \"password\": \"test\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -195,13 +193,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/users/create",
+							"raw": "{{Trapziu_backend_api}}/users/create",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"users",
 								"create"
 							]
@@ -226,20 +222,18 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/profiles/:username",
+							"raw": "{{Trapziu_backend_api}}/profiles/:username",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"profiles",
 								":username"
 							],
 							"variable": [
 								{
 									"key": "username",
-									"value": "u1"
+									"value": "test"
 								}
 							]
 						}
@@ -258,13 +252,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/profiles/:username/follow",
+							"raw": "{{Trapziu_backend_api}}/profiles/:username/follow",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"profiles",
 								":username",
 								"follow"
@@ -272,7 +264,7 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": "followed"
+									"value": "test"
 								}
 							]
 						}
@@ -291,13 +283,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/profiles/:username/follow",
+							"raw": "{{Trapziu_backend_api}}/profiles/:username/follow",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"profiles",
 								":username",
 								"follow"
@@ -305,7 +295,7 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": "u2"
+									"value": "test"
 								}
 							]
 						}
@@ -324,13 +314,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/profiles/:username/block",
+							"raw": "{{Trapziu_backend_api}}/profiles/:username/block",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"profiles",
 								":username",
 								"block"
@@ -338,7 +326,7 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": "blocked"
+									"value": "test"
 								}
 							]
 						}
@@ -357,13 +345,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/profiles/:username/block",
+							"raw": "{{Trapziu_backend_api}}/profiles/:username/block",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"profiles",
 								":username",
 								"block"
@@ -371,7 +357,7 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": "u9"
+									"value": "test"
 								}
 							]
 						}
@@ -384,32 +370,6 @@
 			"name": "Posts router",
 			"item": [
 				{
-					"name": "Get post",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id",
-							"host": [
-								"{{host}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"posts",
-								":post_id"
-							],
-							"variable": [
-								{
-									"key": "post_id",
-									"value": "8"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get posts",
 					"request": {
 						"method": "GET",
@@ -417,39 +377,34 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer {{token}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts",
+							"raw": "{{Trapziu_backend_api}}/posts?author=test&liked=true&limit=10&offset=0",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts"
 							],
 							"query": [
 								{
 									"key": "author",
-									"value": "u1",
-									"disabled": true
+									"value": "test"
 								},
 								{
 									"key": "liked",
-									"value": null,
-									"disabled": true
+									"value": "true"
 								},
 								{
 									"key": "limit",
-									"value": "1",
-									"disabled": true
+									"value": "10"
 								},
 								{
 									"key": "offset",
-									"value": "1",
-									"disabled": true
+									"value": "0"
 								}
 							]
 						}
@@ -457,26 +412,23 @@
 					"response": []
 				},
 				{
-					"name": "Get comments",
+					"name": "Get post",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id/comments",
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts",
-								":post_id",
-								"comments"
+								":post_id"
 							],
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "8"
+									"value": "1"
 								}
 							]
 						}
@@ -496,7 +448,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"post\":{\n        \"title\": \"ttl.@test@test\",\n        \"description\": \"desc.@test@test\",\n        \"content\": \"cont.@test@test\"\n    }\n}",
+							"raw": "{\n    \"post\":{\n        \"title\": \"title@test\",\n        \"description\": \"description@test\",\n        \"content\": \"content@test\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,13 +456,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts",
+							"raw": "{{Trapziu_backend_api}}/posts",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -533,7 +483,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"post\":{\n        \"title\": \"ttl.@modified@test\",\n        \"description\": \"desc.@modified@test\",\n        \"content\": \"cont.@modified@test\"\n    }\n}",
+							"raw": "{\n    \"post\":{\n        \"title\": \"update@title\",\n        \"description\": \"update@description\",\n        \"content\": \"update@content\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -554,7 +504,7 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "8"
+									"value": "1"
 								}
 							]
 						}
@@ -576,20 +526,18 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id",
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts",
 								":post_id"
 							],
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -608,13 +556,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id/like",
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id/like",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts",
 								":post_id",
 								"like"
@@ -622,7 +568,7 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "4"
+									"value": "1"
 								}
 							]
 						}
@@ -641,13 +587,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id/like",
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id/like",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts",
 								":post_id",
 								"like"
@@ -655,7 +599,32 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "4"
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id/comments",
+							"host": [
+								"{{Trapziu_backend_api}}"
+							],
+							"path": [
+								"posts",
+								":post_id",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "post_id",
+									"value": "1"
 								}
 							]
 						}
@@ -683,13 +652,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id/comments",
+							"raw": "{{Trapziu_backend_api}}/posts/:post_id/comments",
 							"host": [
-								"{{host}}"
+								"{{Trapziu_backend_api}}"
 							],
-							"port": "{{port}}",
 							"path": [
-								"api",
 								"posts",
 								":post_id",
 								"comments"
@@ -697,7 +664,7 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "8"
+									"value": "1"
 								}
 							]
 						}
