@@ -76,9 +76,9 @@ impl PostService {
                 vec![user_details::username::equals(author)]))
         }
 
-        if let Some(liked) = query.liked_by {
+        if let Some(liked_by) = query.liked_by {
             filter.push(platform_posts::liked_by_users::some(vec![
-                user_like_posts::user::is(vec![user_details::username::equals(liked)])]))
+                user_like_posts::user::is(vec![user_details::username::equals(liked_by)])]))
         }
 
         if let Some(true) = query.following {
@@ -90,12 +90,14 @@ impl PostService {
 
                 // Get the user_ids of the followed users
                 let followed_user_ids: Vec<i32> = followed_users
-                    .into_iter()
+                    .iter()
                     .map(|follow| follow.followed_id)
                     .collect();
 
                 // Add the posts of the followed users to the filter
                 filter.push(platform_posts::author_id::in_vec(followed_user_ids));
+            }else {
+                return Err(EError::Unauthorized(String::from("Login to filter following author's post")));
             }
         }
 
