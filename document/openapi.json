@@ -124,6 +124,19 @@
             "description": ""
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Users router"
+        ],
+        "summary": "Delete user",
+        "description": "Delete user",
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
       }
     },
     "/users/create": {
@@ -306,7 +319,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "true"
+              "example": "0"
             }
           },
           {
@@ -566,7 +579,7 @@
                     "properties": {
                       "content": {
                         "type": "string",
-                        "example": "test from commenter"
+                        "example": "comment test from test"
                       }
                     }
                   }
@@ -576,7 +589,7 @@
                 "Create comment": {
                   "value": {
                     "comment": {
-                      "content": "test from commenter"
+                      "content": "comment test from test"
                     }
                   }
                 }
@@ -597,7 +610,7 @@
           "required": true,
           "schema": {
             "type": "string",
-            "example": "1"
+            "example": "2"
           }
         }
       ]

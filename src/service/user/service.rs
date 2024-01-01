@@ -1,3 +1,4 @@
+use std::vec;
 // Importing the necessary modules and services.
 use rand::rngs::OsRng;
 use axum::{extract::State, Json};
@@ -8,7 +9,7 @@ use crate::error::EError;
 use crate::service::user::*;
 use crate::config::BeContext;
 use crate::extractor::extractor::AuthUser;
-use crate::prisma::prisma::{PrismaClient, user_details, user_password};
+use crate::prisma::prisma::{platform_posts, post_comments, PrismaClient, user_blocks, user_details, user_follows, user_history, user_like_posts, user_password};
 
 
 // Type alias for the Prisma client.
@@ -117,7 +118,12 @@ impl UsersService {
 
         let user_data = prisma
             .user_details().find_unique(user_details::user_id::equals(auth_user.user_id))
-            .exec().await?.unwrap();
+            .exec().await?;
+
+        let user_data = match user_data {
+            Some(user_data) => user_data,
+            None => return Err(EError::NotFound(String::from("User not found"))),
+        };
 
         let user_data = prisma
             .user_details()
@@ -207,6 +213,77 @@ impl UsersService {
         user.set_token(token);
 
         Ok(Json::from(UserBody { user }))
+    }
+
+
+    // Function to delete a user.
+    // It takes the Prisma client and an authenticated user as parameters.
+    // It returns a `Result` with a JSON response containing the deleted user's details or an error.
+    pub async fn delete_user(
+        prisma: PRISMA,
+        auth_user: AuthUser,
+    ) -> Result<String, EError> {
+
+        let user_data = prisma
+            .user_details().find_unique(user_details::user_id::equals(auth_user.user_id))
+            .exec().await?;
+
+        let _ = match user_data {
+            Some(user_data) => user_data,
+            None => return Err(EError::NotFound(String::from("User not found"))),
+        };
+
+        tracing::info!("Deleting user: user_id: {}", auth_user.user_id);
+
+        // Delete user's follows
+        let _ = prisma
+            .user_follows()
+            .delete_many(vec![user_follows::follower_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's blocks
+        let _ = prisma
+            .user_blocks()
+            .delete_many(vec![user_blocks::blocker_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's comments
+        let _ = prisma
+            .post_comments()
+            .delete_many(vec![post_comments::user_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's likes
+        let _ = prisma
+            .user_like_posts()
+            .delete_many(vec![user_like_posts::user_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's history
+        let _ = prisma
+            .user_history()
+            .delete_many(vec![user_history::user_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's posts
+        let _ = prisma
+            .platform_posts()
+            .delete_many(vec![platform_posts::author_id::equals(auth_user.user_id)])
+            .exec().await?;
+
+        // Delete user's password
+        let _ = prisma
+            .user_password()
+            .delete(user_password::user_id::equals(auth_user.user_id))
+            .exec().await?;
+
+        // Delete user
+        let _ = prisma
+            .user_details()
+            .delete(user_details::user_id::equals(auth_user.user_id))
+            .exec().await?;
+
+        Ok("User deleted".to_string())
     }
 
 

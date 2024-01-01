@@ -78,6 +78,15 @@ paths:
       responses:
         '200':
           description: ''
+    delete:
+      tags:
+      - Users router
+      summary: Delete user
+      description: Delete user
+      operationId: deleteUser
+      responses:
+        '200':
+          description: ''
   /users/create:
     post:
       tags:
@@ -199,7 +208,7 @@ paths:
         in: query
         schema:
           type: string
-          example: 'true'
+          example: '0'
       - name: limit
         in: query
         schema:
@@ -372,12 +381,12 @@ paths:
                   properties:
                     content:
                       type: string
-                      example: test from commenter
+                      example: comment test from test
             examples:
               Create comment:
                 value:
                   comment:
-                    content: test from commenter
+                    content: comment test from test
       responses:
         '200':
           description: ''
@@ -387,7 +396,7 @@ paths:
       required: true
       schema:
         type: string
-        example: '1'
+        example: '2'
   /api/posts/{post_id}/comments/{comment_id}:
     delete:
       tags:

@@ -1,0 +1,8 @@
+.DS_Store
+.env
+.idea
+docker-compose.yaml
+Postgresql_data
+target
+prisma/.env
+src/prisma/prisma.rs

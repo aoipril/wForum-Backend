@@ -1,5 +1,5 @@
 // Importing the necessary modules and functions.
-use axum::routing::{get, post, put};
+use axum::routing::{delete, get, post, put};
 use crate::service::user::service::UsersService;
 
 
@@ -19,6 +19,8 @@ impl UsersRouter {
             .route("/users", post(UsersService::login_user))
             // Route for updating the current user's details.
             .route("/users", put(UsersService::update_user))
+            // Route for deleting the current user's account.
+            .route("/users", delete(UsersService::delete_user))
             // Route for creating a new user.
             .route("/users/create", post(UsersService::create_user))
     }

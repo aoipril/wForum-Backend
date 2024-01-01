@@ -63,6 +63,51 @@
 					"response": []
 				},
 				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json()",
+									"if (res.user.username) {",
+									"    postman.setEnvironmentVariable(\"username\", res.user.username);",
+									"}",
+									"if (res.user.token) {",
+									"    postman.setEnvironmentVariable(\"token\", res.user.token);",
+									"}",
+									"pm.environment.set(\"time\", new Date().toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"email\": \"test@test.com\",\n        \"username\": \"test\",\n        \"password\": \"test\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Trapziu_backend_api}}/users/create",
+							"host": [
+								"{{Trapziu_backend_api}}"
+							],
+							"path": [
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login user",
 					"event": [
 						{
@@ -161,45 +206,23 @@
 					"response": []
 				},
 				{
-					"name": "Create user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const res = pm.response.json()",
-									"if (res.user.username) {",
-									"    postman.setEnvironmentVariable(\"username\", res.user.username);",
-									"}",
-									"if (res.user.token) {",
-									"    postman.setEnvironmentVariable(\"token\", res.user.token);",
-									"}",
-									"pm.environment.set(\"time\", new Date().toISOString());"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "Delete user",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"user\": {\n        \"email\": \"test@test.com\",\n        \"username\": \"test\",\n        \"password\": \"test\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
 							}
-						},
+						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users/create",
+							"raw": "{{Trapziu_backend_api}}/users",
 							"host": [
 								"{{Trapziu_backend_api}}"
 							],
 							"path": [
-								"users",
-								"create"
+								"users"
 							]
 						}
 					},
@@ -382,7 +405,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts?author=test&liked=true&limit=10&offset=0",
+							"raw": "{{Trapziu_backend_api}}/posts?author=test&liked=0&limit=10&offset=0",
 							"host": [
 								"{{Trapziu_backend_api}}"
 							],
@@ -396,7 +419,7 @@
 								},
 								{
 									"key": "liked",
-									"value": "true"
+									"value": "0"
 								},
 								{
 									"key": "limit",
@@ -644,7 +667,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"comment\":{\n        \"content\": \"test from commenter\"\n    }\n}",
+							"raw": "{\n    \"comment\":{\n        \"content\": \"comment test from test\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -664,7 +687,7 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
