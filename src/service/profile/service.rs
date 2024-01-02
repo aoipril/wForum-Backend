@@ -75,7 +75,7 @@ impl ProfilesService {
 
         let followed_user = Helper::get_user_by_name(&prisma, username).await?;
 
-        tracing::debug!("Following profile: username: {} to {}",
+        tracing::info!("Following profile: username: {} to {}",
             current_user.username, followed_user.username);
 
         if Checker::check_following(&prisma, auth_user.user_id, followed_user.user_id).await? {
@@ -128,7 +128,7 @@ impl ProfilesService {
 
         let followed_user = Helper::get_user_by_name(&prisma, username).await?;
 
-        tracing::debug!("Unfollowing profile: username: {} to {}",
+        tracing::info!("Unfollowing profile: username: {} to {}",
             current_user.username, followed_user.username);
 
         if !Checker::check_following(&prisma, auth_user.user_id, followed_user.user_id).await? {
@@ -167,7 +167,7 @@ impl ProfilesService {
 
         let blocked_user = Helper::get_user_by_name(&prisma, username).await?;
 
-        tracing::debug!("Blocking profile: username: {} to {}",
+        tracing::info!("Blocking profile: username: {} to {}",
             current_user.username, blocked_user.username);
 
         if Checker::check_blocked(&prisma, auth_user.user_id, blocked_user.user_id).await? {
@@ -230,7 +230,7 @@ impl ProfilesService {
 
         let blocked_user = Helper::get_user_by_name(&prisma, username).await?;
 
-        tracing::debug!("Unblocking profile: username: {} to {}",
+        tracing::info!("Unblocking profile: username: {} to {}",
             current_user.username, blocked_user.username);
 
         if !Checker::check_blocked(&prisma, auth_user.user_id, blocked_user.user_id).await? {

@@ -31,7 +31,7 @@ impl PostService {
         Path(post_id): Path<String>,
     ) -> Result<Json<PostContent<Post>>, EError> {
 
-        tracing::debug!("Fetching Post: post_id: {}",post_id);
+        tracing::info!("Fetching Post: post_id: {}",post_id);
 
         let post = Helper::fetch_post(&prisma, post_id).await?;
 
@@ -67,7 +67,7 @@ impl PostService {
         Query(query): Query<ListPostQuery>,
     ) -> Result<Json<PostsBody<Post>>, EError> {
 
-        tracing::debug!("Fetching Posts");
+        tracing::info!("Fetching Posts");
 
         let mut filter: Vec<platform_posts::WhereParam> = Vec::new();
 
@@ -135,7 +135,7 @@ impl PostService {
         Json(input): Json<PostContent<CreatePostPost>>,
     ) -> Result<Json<PostContent<Post>>, EError> {
 
-        tracing::debug!("Creating post: user_id: {}", auth_user.user_id);
+        tracing::info!("Creating post: user_id: {}", auth_user.user_id);
 
         let PostContent {
             post:
@@ -175,7 +175,7 @@ impl PostService {
         Json(input): Json<PostContent<UpdatePostPost>>,
     ) -> Result<Json<PostContent<Post>>, EError> {
 
-        tracing::debug!("Updating Post: user_id: {}, post_id: {}", auth_user.user_id, post_id);
+        tracing::info!("Updating Post: user_id: {}, post_id: {}", auth_user.user_id, post_id);
 
         let PostContent {
             post:
@@ -233,7 +233,7 @@ impl PostService {
         Path(post_id): Path<String>,
     ) -> Result<Json<String>, EError> {
 
-        tracing::debug!("Deleting post: user_id: {}, post_id: {}", auth_user.user_id, post_id);
+        tracing::info!("Deleting post: user_id: {}, post_id: {}", auth_user.user_id, post_id);
 
         let post = Helper::fetch_post(&prisma, post_id.parse().unwrap()).await?;
 
