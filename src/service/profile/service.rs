@@ -104,8 +104,11 @@ impl ProfilesService {
             .exec()
             .await?;
 
+        let followed =
+            Checker::check_following(&prisma, followed_user.user_id, auth_user.user_id,).await?;
+
         Ok(Json::from(ProfileBody {
-            profile: followed_user.to_profile(true, false,
+            profile: followed_user.to_profile(followed, true,
                                               false, false),
         }))
     }
@@ -143,8 +146,11 @@ impl ProfilesService {
             ))
             .exec().await.is_ok();
 
+        let followed =
+            Checker::check_following(&prisma, followed_user.user_id, auth_user.user_id,).await?;
+
         Ok(Json::from(ProfileBody {
-            profile: followed_user.to_profile(false, false,
+            profile: followed_user.to_profile(followed, false,
                                               false, false),
         }))
     }
