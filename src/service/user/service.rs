@@ -6,7 +6,7 @@ use argon2::{password_hash::SaltString, Argon2, PasswordHash, PasswordHasher, Pa
 
 // Importing the application's modules.
 use crate::error::EError;
-use crate::service::user::*;
+use crate::service::user::model::*;
 use crate::config::BeContext;
 use crate::extractor::extractor::AuthUser;
 use crate::prisma::prisma::{platform_posts, post_comments, PrismaClient, user_blocks, user_details, user_follows, user_history, user_like_posts, user_password};

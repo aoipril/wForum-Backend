@@ -20,13 +20,13 @@ impl Router {
             .route("/", axum::routing::get("Hello Rust!"))
             // Nested route for the "/api" path.
             // This route forwards requests to the `PostRouter`.
-            .nest("/api", post::router::PostRouter::new())
+            .nest("/api", post::PostRouter::new())
             // Nested route for the "/api" path.
             // This route forwards requests to the `ProfilesRouter`.
-            .nest("/api", profile::router::ProfilesRouter::new())
+            .nest("/api", profile::ProfilesRouter::new())
             // Nested route for the "/api" path.
             // This route forwards requests to the `UsersRouter`.
-            .nest("/api", user::router::UsersRouter::new())
+            .nest("/api", user::UsersRouter::new())
 
     }
 }

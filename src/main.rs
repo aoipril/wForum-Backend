@@ -27,7 +27,8 @@ async fn main() -> anyhow::Result<()> {
     let prisma_client = Arc::new(PrismaClient::_builder().build().await?);
 
     // Setting up CORS with the `CorsLayer`.
-    let cors = CorsLayer::new().allow_methods(Any).allow_origin(Any);
+    let cors = CorsLayer::new()
+        .allow_methods(Any).allow_headers(Any).allow_origin(Any);
 
     // Creating the application with the defined routes and middleware.
     let app = trapziu_backend::service::Router::new()

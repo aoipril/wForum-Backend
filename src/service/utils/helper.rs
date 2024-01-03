@@ -1,6 +1,6 @@
 // Importing the necessary modules and functions.
 use crate::error::EError;
-use crate::service::post::Post;
+use crate::service::post::model::Post;
 use crate::service::utils::checker::Checker;
 use crate::prisma::prisma::{platform_posts, user_details, PrismaClient};
 
@@ -91,29 +91,6 @@ impl Helper {
             Some(data) => Ok(data),
             None => Err(EError::NotFound(String::from("Post not found"))),
         }
-    }
-
-    // Function to fetch multiple posts based on provided filters.
-    // It takes the Prisma client, a vector of filters, a limit and an offset as parameters.
-    // It returns a `Result` with a vector of posts or an error.
-    pub async fn fetch_posts(
-        prisma: &PrismaClient,
-        filter: Vec<platform_posts::WhereParam>,
-        query_limit: Option<i64>,
-        query_offset: Option<i64>,
-    ) -> Result<Vec<platform_posts::Data>, EError> {
-
-        let posts = prisma
-            .platform_posts()
-            .find_many(filter)
-            .with(platform_posts::author::fetch())
-            .take(query_limit.unwrap_or(20))
-            .skip(query_offset.unwrap_or(0))
-            .order_by(platform_posts::created_at::order(prisma_client_rust::Direction::Desc))
-            .exec().await
-            .map_err(|_| EError::InternalServerError(String::from("Failed to fetch posts")))?;
-
-        Ok(posts)
     }
 
     // Function to add a post to a vector of posts.

@@ -146,13 +146,13 @@ model UserLikePosts {
 
 // 记录表
 model UserHistory {
-  userId Int
-  postId Int
+  historyId Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  time      DateTime @default(now())
 
   // 外键关联到用户信息表
   user UserDetails   @relation("UserHistory", fields: [userId], references: [userId])
   // 外键关联到平台文章表
   post PlatformPosts @relation("PostHistory", fields: [postId], references: [postId])
-
-  @@id([userId, postId])
 }

@@ -1,15 +1,16 @@
 // Importing the necessary modules and services.
 use axum::Json;
 use axum::extract::{Path, Query};
+use prisma_client_rust::chrono::{DateTime, FixedOffset};
 
 // Importing the application's modules.
 use crate::error::EError;
-use crate::service::post::*;
+use crate::service::post::model::*;
 use crate::service::utils::helper::Helper;
 use crate::service::utils::checker::Checker;
 use crate::extractor::extractor::{AuthUser, OptionalAuthUser};
 use crate::prisma::prisma::{
-    platform_posts, post_comments, user_details, user_follows, user_like_posts, PrismaClient
+    platform_posts, post_comments, user_history, user_details, user_follows, user_like_posts, PrismaClient
 };
 
 // Type alias for the Prisma client.
@@ -26,7 +27,7 @@ impl PostService {
     // It takes an optional authenticated user, the Prisma client and the post's ID as parameters.
     // It returns a `Result` with a JSON response containing the post's details or an error.
     pub async fn fetch_post(
-        auth_user: OptionalAuthUser,
+        maybe_user: OptionalAuthUser,
         prisma: PRISMA,
         Path(post_id): Path<String>,
     ) -> Result<Json<PostContent<Post>>, EError> {
@@ -35,16 +36,25 @@ impl PostService {
 
         let post = Helper::fetch_post(&prisma, post_id).await?;
 
-        if let Some(user) = auth_user.0 {
-            let liked = Checker::check_liked(&prisma, user.user_id, post.post_id).await?;
+        if let Some(auth_user) = maybe_user.0 {
+
+            let _ = prisma
+                .user_history()
+                .create(
+                    user_details::user_id::equals(auth_user.user_id),
+                    platform_posts::post_id::equals(post.post_id),
+                    vec![],
+                ).exec().await?;
+
+            let liked = Checker::check_liked(&prisma, auth_user.user_id, post.post_id).await?;
             let followed =
-                Checker::check_following(&prisma, post.author_id, user.user_id,).await?;
+                Checker::check_following(&prisma, post.author_id, auth_user.user_id,).await?;
             let following =
-                Checker::check_following(&prisma, user.user_id, post.author_id).await?;
+                Checker::check_following(&prisma, auth_user.user_id, post.author_id).await?;
             let blocked =
-                Checker::check_blocked(&prisma, post.author_id, user.user_id,).await?;
+                Checker::check_blocked(&prisma, post.author_id, auth_user.user_id,).await?;
             let blocking =
-                Checker::check_blocked(&prisma, user.user_id, post.author_id).await?;
+                Checker::check_blocked(&prisma, auth_user.user_id, post.author_id).await?;
 
             return Ok(Json::from(PostContent {
                 post: post.to_post(liked, followed, following, blocked, blocking),
@@ -83,36 +93,39 @@ impl PostService {
 
         if let Some(true) = query.following {
             if let Some(auth_user) = user.clone().0 {
-                // Get all users that the current user is following
+                // Get all users id that the current user is following
                 let followed_users = prisma.user_follows()
                     .find_many(vec![user_follows::follower_id::equals(auth_user.user_id)])
-                    .exec().await?;
-
-                // Get the user_ids of the followed users
-                let followed_user_ids: Vec<i32> = followed_users
-                    .iter()
+                    .exec().await?.iter()
                     .map(|follow| follow.followed_id)
                     .collect();
 
                 // Add the posts of the followed users to the filter
-                filter.push(platform_posts::author_id::in_vec(followed_user_ids));
+                filter.push(platform_posts::author_id::in_vec(followed_users));
             }else {
                 return Err(EError::Unauthorized(String::from("Login to filter following author's post")));
             }
         }
 
-        let _post = Helper::fetch_posts(&prisma, filter.clone(), query.limit, query.offset).await?;
+        let _posts = prisma
+            .platform_posts().find_many(filter.clone())
+            .with(platform_posts::author::fetch())
+            .take(query.limit.unwrap_or(20))
+            .skip(query.offset.unwrap_or(0))
+            .order_by(platform_posts::created_at::order(prisma_client_rust::Direction::Desc))
+            .exec().await
+            .map_err(|_| EError::InternalServerError(String::from("Failed to fetch posts")))?;
 
-        let limit = prisma.platform_posts().count(filter).exec().await?;
+        let count = prisma.platform_posts().count(filter).exec().await?;
 
         let mut posts: Vec<Post> = Vec::new();
 
         if let Some(auth_user) = user.0 {
-            for post in _post.iter() {
+            for post in _posts.iter() {
                 Helper::push_post(&prisma, &mut posts, post, auth_user.user_id).await?;
             }
         } else {
-            posts = _post
+            posts = _posts
                 .iter()
                 .map(|post| post.clone().to_post(false, false, false,
                                                  false, false))
@@ -121,8 +134,59 @@ impl PostService {
 
         Ok(Json::from(PostsBody {
             posts,
-            limit: limit as usize,
+            post_count: count as usize,
         }))
+    }
+
+
+    // Function to read user history.
+    // It takes an authenticated user, the Prisma client and the query parameters as parameters.
+    // It returns a `Result` with a JSON response containing a list of posts or an error.
+    pub async fn fetch_history(
+        auth_user: AuthUser,
+        prisma: PRISMA,
+        Query(query): Query<ListPostQuery>,
+    ) -> Result<Json<HistoryBody<Post>>, EError> {
+
+        tracing::info!("Reading history: user_id:{}", auth_user.user_id);
+
+        let filter = vec![user_history::user_id::equals(auth_user.user_id)];
+
+        let history = prisma
+            .user_history().find_many(filter.clone())
+            .take(query.limit.unwrap_or(20))
+            .skip(query.offset.unwrap_or(0))
+            .order_by(user_history::time::order(prisma_client_rust::Direction::Desc))
+            .exec().await.map_err(|_| EError::InternalServerError(String::from("Failed to fetch history")))?;
+
+
+        let post_ids = history
+            .iter().map(|history| history.post_id).collect::<Vec<i32>>();
+
+        let time_vec = history
+            .iter().map(|history| history.time).collect::<Vec<DateTime<FixedOffset>>>();
+
+        let mut posts: Vec<Post> = Vec::new();
+
+        for id in post_ids.iter() {
+            let post = prisma
+                .platform_posts()
+                .find_unique(platform_posts::post_id::equals(*id))
+                .with(platform_posts::author::fetch())
+                .exec().await
+                .map_err(|_| EError::InternalServerError(String::from("Failed to fetch post")))?;
+
+            if let Some(post) = post {
+                Helper::push_post(&prisma, &mut posts, &post, auth_user.user_id).await?;
+            }
+        }
+
+        let count = prisma.user_history().count(filter.clone()).exec().await?;
+
+        Ok(Json::from(HistoryBody {
+            posts, time_vec,
+            post_count: count as usize,
+        }.with_timezone_offset()))
     }
 
 

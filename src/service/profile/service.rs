@@ -5,7 +5,7 @@ use axum::extract::Path;
 // Importing the application's modules.
 use crate::service::utils::helper::Helper;
 use crate::service::utils::checker::Checker;
-use crate::service::profile::{Profile, ProfileBody};
+use crate::service::profile::model::{Profile, ProfileBody};
 use crate::error::EError;
 use crate::extractor::extractor::{AuthUser, OptionalAuthUser};
 use crate::prisma::prisma::{user_blocks, user_details, user_follows, PrismaClient};
@@ -93,7 +93,7 @@ impl ProfilesService {
         prisma
             .user_follows()
             .upsert(
-                user_follows::follower_id_followed_id(followed_user.user_id, current_user.user_id),
+                user_follows::follower_id_followed_id(current_user.user_id, followed_user.user_id),
                 user_follows::create(
                     user_details::user_id::equals(current_user.user_id),
                     user_details::user_id::equals(followed_user.user_id),
