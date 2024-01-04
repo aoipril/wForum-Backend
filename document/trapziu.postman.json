@@ -1,16 +1,14 @@
 {
 	"info": {
-		"_postman_id": "",
 		"name": "trapziu",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": ""
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Users router",
 			"item": [
 				{
-					"name": "Fetch user",
+					"name": "Get current user",
 					"event": [
 						{
 							"listen": "test",
@@ -51,9 +49,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users",
+							"raw": "{{Trapziu-backend-api}}/users",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -95,9 +93,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users/create",
+							"raw": "{{Trapziu-backend-api}}/users/create",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"users",
@@ -136,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": {\n        \"email\": \"test@test.com\",\n        \"password\": \"test\"\n    }\n}",
+							"raw": "{\n    \"user\": {\n        \"email\": \"yew@test.com\",\n        \"password\": \"yew\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -144,9 +142,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users",
+							"raw": "{{Trapziu-backend-api}}/users",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -194,9 +192,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users",
+							"raw": "{{Trapziu-backend-api}}/users",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -217,9 +215,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/users",
+							"raw": "{{Trapziu-backend-api}}/users",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -245,9 +243,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/profiles/:username",
+							"raw": "{{Trapziu-backend-api}}/profiles/:username",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -275,9 +273,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/profiles/:username/follow",
+							"raw": "{{Trapziu-backend-api}}/profiles/:username/follow",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -306,9 +304,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/profiles/:username/follow",
+							"raw": "{{Trapziu-backend-api}}/profiles/:username/follow",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -337,9 +335,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/profiles/:username/block",
+							"raw": "{{Trapziu-backend-api}}/profiles/:username/block",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -368,9 +366,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/profiles/:username/block",
+							"raw": "{{Trapziu-backend-api}}/profiles/:username/block",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -393,56 +391,20 @@
 			"name": "Posts router",
 			"item": [
 				{
-					"name": "Get posts",
+					"name": "Get post",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer {{token}}",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts?author=test&liked=0&limit=10&offset=0",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id",
 							"host": [
-								"{{Trapziu_backend_api}}"
-							],
-							"path": [
-								"posts"
-							],
-							"query": [
-								{
-									"key": "author",
-									"value": "test"
-								},
-								{
-									"key": "liked",
-									"value": "0"
-								},
-								{
-									"key": "limit",
-									"value": "10"
-								},
-								{
-									"key": "offset",
-									"value": "0"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get post",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id",
-							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -451,8 +413,86 @@
 							"variable": [
 								{
 									"key": "post_id",
-									"value": "1"
+									"value": "2"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{Trapziu-backend-api}}/posts?following=true",
+							"host": [
+								"{{Trapziu-backend-api}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "test",
+									"description": "String",
+									"disabled": true
+								},
+								{
+									"key": "likedBy",
+									"value": "test",
+									"description": "String",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "i64",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "i64",
+									"disabled": true
+								},
+								{
+									"key": "following",
+									"value": "true",
+									"description": "bool"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{Trapziu-backend-api}}/posts/history",
+							"host": [
+								"{{Trapziu-backend-api}}"
+							],
+							"path": [
+								"posts",
+								"history"
 							]
 						}
 					},
@@ -479,9 +519,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts",
+							"raw": "{{Trapziu-backend-api}}/posts",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts"
@@ -514,11 +554,10 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id",
+							"raw": "{{Trapziu-backend-api}}/api/posts/:post_id",
 							"host": [
-								"{{host}}"
+								"{{Trapziu-backend-api}}"
 							],
-							"port": "{{port}}",
 							"path": [
 								"api",
 								"posts",
@@ -549,9 +588,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -579,9 +618,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id/like",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id/like",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -610,9 +649,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id/like",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id/like",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -635,9 +674,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id/comments",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id/comments",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -675,9 +714,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu_backend_api}}/posts/:post_id/comments",
+							"raw": "{{Trapziu-backend-api}}/posts/:post_id/comments",
 							"host": [
-								"{{Trapziu_backend_api}}"
+								"{{Trapziu-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -706,11 +745,10 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}:{{port}}/api/posts/:post_id/comments/:comment_id",
+							"raw": "{{Trapziu-backend-api}}/api/posts/:post_id/comments/:comment_id",
 							"host": [
-								"{{host}}"
+								"{{Trapziu-backend-api}}"
 							],
-							"port": "{{port}}",
 							"path": [
 								"api",
 								"posts",

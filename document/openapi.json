@@ -16,14 +16,14 @@
         "tags": [
           "Users router"
         ],
-        "summary": "Fetch user",
-        "description": "Fetch user",
-        "operationId": "fetchUser",
+        "summary": "Get current user",
+        "description": "Get current user",
+        "operationId": "getCurrentUser",
         "requestBody": {
           "content": {
             "application/json": {
               "examples": {
-                "Fetch user": {
+                "Get current user": {
                   "value": ""
                 }
               }
@@ -96,11 +96,11 @@
                     "properties": {
                       "email": {
                         "type": "string",
-                        "example": "test@test.com"
+                        "example": "yew@test.com"
                       },
                       "password": {
                         "type": "string",
-                        "example": "test"
+                        "example": "yew"
                       }
                     }
                   }
@@ -110,8 +110,8 @@
                 "Login user": {
                   "value": {
                     "user": {
-                      "email": "test@test.com",
-                      "password": "test"
+                      "email": "yew@test.com",
+                      "password": "yew"
                     }
                   }
                 }
@@ -297,6 +297,48 @@
         }
       ]
     },
+    "/posts/{post_id}": {
+      "get": {
+        "tags": [
+          "Posts router"
+        ],
+        "summary": "Get post",
+        "description": "Get post",
+        "operationId": "getPost",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Posts router"
+        ],
+        "summary": "Delete post",
+        "description": "Delete post",
+        "operationId": "deletePost",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {}
+        ]
+      },
+      "parameters": [
+        {
+          "name": "post_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": "1"
+          }
+        }
+      ]
+    },
     "/posts": {
       "get": {
         "tags": [
@@ -312,15 +354,17 @@
             "schema": {
               "type": "string",
               "example": "test"
-            }
+            },
+            "description": "String"
           },
           {
-            "name": "liked",
+            "name": "likedBy",
             "in": "query",
             "schema": {
               "type": "string",
-              "example": "0"
-            }
+              "example": "test"
+            },
+            "description": "String"
           },
           {
             "name": "limit",
@@ -328,7 +372,8 @@
             "schema": {
               "type": "string",
               "example": "10"
-            }
+            },
+            "description": "i64"
           },
           {
             "name": "offset",
@@ -336,7 +381,17 @@
             "schema": {
               "type": "string",
               "example": "0"
-            }
+            },
+            "description": "i64"
+          },
+          {
+            "name": "following",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "true"
+            },
+            "description": "bool"
           }
         ],
         "responses": {
@@ -398,47 +453,20 @@
         }
       }
     },
-    "/posts/{post_id}": {
+    "/posts/history": {
       "get": {
         "tags": [
           "Posts router"
         ],
-        "summary": "Get post",
-        "description": "Get post",
-        "operationId": "getPost",
+        "summary": "Get History",
+        "description": "Get History",
+        "operationId": "getHistory",
         "responses": {
           "200": {
             "description": ""
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Posts router"
-        ],
-        "summary": "Delete post",
-        "description": "Delete post",
-        "operationId": "deletePost",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {}
-        ]
-      },
-      "parameters": [
-        {
-          "name": "post_id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "example": "1"
-          }
-        }
-      ]
+      }
     },
     "/api/posts/{post_id}": {
       "put": {

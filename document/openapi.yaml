@@ -10,14 +10,14 @@ paths:
     get:
       tags:
       - Users router
-      summary: Fetch user
-      description: Fetch user
-      operationId: fetchUser
+      summary: Get current user
+      description: Get current user
+      operationId: getCurrentUser
       requestBody:
         content:
           application/json:
             examples:
-              Fetch user:
+              Get current user:
                 value: ''
       responses:
         '200':
@@ -65,16 +65,16 @@ paths:
                   properties:
                     email:
                       type: string
-                      example: test@test.com
+                      example: yew@test.com
                     password:
                       type: string
-                      example: test
+                      example: yew
             examples:
               Login user:
                 value:
                   user:
-                    email: test@test.com
-                    password: test
+                    email: yew@test.com
+                    password: yew
       responses:
         '200':
           description: ''
@@ -191,6 +191,34 @@ paths:
       schema:
         type: string
         example: test
+  /posts/{post_id}:
+    get:
+      tags:
+      - Posts router
+      summary: Get post
+      description: Get post
+      operationId: getPost
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+      - Posts router
+      summary: Delete post
+      description: Delete post
+      operationId: deletePost
+      responses:
+        '200':
+          description: ''
+      security:
+      - {}
+    parameters:
+    - name: post_id
+      in: path
+      required: true
+      schema:
+        type: string
+        example: '1'
   /posts:
     get:
       tags:
@@ -204,21 +232,31 @@ paths:
         schema:
           type: string
           example: test
-      - name: liked
+        description: String
+      - name: likedBy
         in: query
         schema:
           type: string
-          example: '0'
+          example: test
+        description: String
       - name: limit
         in: query
         schema:
           type: string
           example: '10'
+        description: i64
       - name: offset
         in: query
         schema:
           type: string
           example: '0'
+        description: i64
+      - name: following
+        in: query
+        schema:
+          type: string
+          example: 'true'
+        description: bool
       responses:
         '200':
           description: ''
@@ -256,34 +294,16 @@ paths:
       responses:
         '200':
           description: ''
-  /posts/{post_id}:
+  /posts/history:
     get:
       tags:
       - Posts router
-      summary: Get post
-      description: Get post
-      operationId: getPost
+      summary: Get History
+      description: Get History
+      operationId: getHistory
       responses:
         '200':
           description: ''
-    delete:
-      tags:
-      - Posts router
-      summary: Delete post
-      description: Delete post
-      operationId: deletePost
-      responses:
-        '200':
-          description: ''
-      security:
-      - {}
-    parameters:
-    - name: post_id
-      in: path
-      required: true
-      schema:
-        type: string
-        example: '1'
   /api/posts/{post_id}:
     put:
       tags:
