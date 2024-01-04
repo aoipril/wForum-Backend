@@ -1,4 +1,5 @@
 // Importing the necessary modules and services.
+use std::vec;
 use axum::Json;
 use axum::extract::{Path, Query};
 use prisma_client_rust::chrono::{DateTime, FixedOffset};
@@ -304,8 +305,23 @@ impl PostService {
         Checker::check_author(auth_user.user_id, &post).await?;
 
         let _ = prisma
+            .post_comments()
+            .delete_many(vec![post_comments::post_id::equals(post_id.parse().unwrap())])
+            .exec().await?;
+
+        let _ = prisma
+            .user_history()
+            .delete_many(vec![user_history::post_id::equals(post_id.parse().unwrap())])
+            .exec().await?;
+
+        let _ = prisma
+            .user_like_posts()
+            .delete_many(vec![user_like_posts::post_id::equals(post_id.parse().unwrap())])
+            .exec().await?;
+
+        let _ = prisma
             .platform_posts()
-            .delete(platform_posts::post_id::equals(post_id.parse().unwrap()),)
+            .delete(platform_posts::post_id::equals(post_id.parse().unwrap()))
             .exec().await?;
 
         Ok(Json::from("Post deleted".to_string()))
