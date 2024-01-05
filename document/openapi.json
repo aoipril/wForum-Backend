@@ -7,7 +7,13 @@
   },
   "servers": [
     {
-      "url": "http://127.0.0.1:8000/api"
+      "url": "{{Ryoxhi-backend-api}}"
+    },
+    {
+      "url": "{{Ryoxhi-backend-api}}}"
+    },
+    {
+      "url": "127.0.0.1"
     }
   ],
   "paths": {
@@ -124,22 +130,9 @@
             "description": ""
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Users router"
-        ],
-        "summary": "Delete user",
-        "description": "Delete user",
-        "operationId": "deleteUser",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
       }
     },
-    "/users/create": {
+    "/users/creat": {
       "post": {
         "tags": [
           "Users router"
@@ -186,6 +179,21 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user": {
+      "delete": {
+        "tags": [
+          "Users router"
+        ],
+        "summary": "Delete user",
+        "description": "Delete user",
+        "operationId": "deleteUser",
         "responses": {
           "200": {
             "description": ""

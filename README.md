@@ -1,13 +1,13 @@
-# Trapziu - Backend
+# Ryoxhi - Backend - Axum
 An online forum backend using axum and prisma.
 
 ## API Documentation
 
 View files in the folder `api_document`:
 
-- trapziu.postman.json
-- Openapi.json ( Auto  generated )
-- Openapi.yaml  ( Auto  generated )
+- Ryoxhi.postman.json
+- Openapi.json ( Auto generated )
+- Openapi.yaml  ( Auto generated )
 
 ## Functionality
 

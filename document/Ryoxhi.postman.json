@@ -49,9 +49,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/users",
+							"raw": "{{Ryoxhi-backend-api}}/users",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -93,13 +93,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/users/create",
+							"raw": "{{Ryoxhi-backend-api}}/users/creat",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"users",
-								"create"
+								"creat"
 							]
 						}
 					},
@@ -142,9 +142,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/users",
+							"raw": "{{Ryoxhi-backend-api}}/users",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -192,9 +192,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/users",
+							"raw": "{{Ryoxhi-backend-api}}/users",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"users"
@@ -215,12 +215,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/users",
+							"raw": "{{Ryoxhi-backend-api}}/user",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
-								"users"
+								"user"
 							]
 						}
 					},
@@ -243,9 +243,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/profiles/:username",
+							"raw": "{{Ryoxhi-backend-api}}}/profiles/:username",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}}"
 							],
 							"path": [
 								"profiles",
@@ -273,9 +273,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/profiles/:username/follow",
+							"raw": "{{Ryoxhi-backend-api}}/profiles/:username/follow",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -304,9 +304,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/profiles/:username/follow",
+							"raw": "{{Ryoxhi-backend-api}}/profiles/:username/follow",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -335,9 +335,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/profiles/:username/block",
+							"raw": "{{Ryoxhi-backend-api}}/profiles/:username/block",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -366,9 +366,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/profiles/:username/block",
+							"raw": "{{Ryoxhi-backend-api}}/profiles/:username/block",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"profiles",
@@ -402,9 +402,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -432,9 +432,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts?following=true",
+							"raw": "{{Ryoxhi-backend-api}}/posts?following=true",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts"
@@ -486,9 +486,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/history",
+							"raw": "{{Ryoxhi-backend-api}}/posts/history",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -519,9 +519,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts",
+							"raw": "{{Ryoxhi-backend-api}}/posts",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts"
@@ -554,9 +554,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/api/posts/:post_id",
+							"raw": "{{Ryoxhi-backend-api}}/api/posts/:post_id",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"api",
@@ -588,9 +588,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -618,9 +618,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id/like",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id/like",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -649,9 +649,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id/like",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id/like",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -674,9 +674,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id/comments",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id/comments",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -714,9 +714,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/posts/:post_id/comments",
+							"raw": "{{Ryoxhi-backend-api}}/posts/:post_id/comments",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"posts",
@@ -745,9 +745,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{Trapziu-backend-api}}/api/posts/:post_id/comments/:comment_id",
+							"raw": "{{Ryoxhi-backend-api}}/api/posts/:post_id/comments/:comment_id",
 							"host": [
-								"{{Trapziu-backend-api}}"
+								"{{Ryoxhi-backend-api}}"
 							],
 							"path": [
 								"api",

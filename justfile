@@ -1,10 +1,10 @@
 #!/usr/bin/env just --justfile
 
 dbpush:
-    cd prisma && cargo run db push
+    cargo prisma db push
 
 generate:
-    cd prisma && cargo run generate
+    cargo prisma generate
 
 updb:
     docker compose up -d

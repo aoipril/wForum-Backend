@@ -3821,6 +3821,7 @@ dependencies = [
  "jsonwebtoken",
  "lazy_static",
  "prisma-client-rust",
+ "prisma-client-rust-cli",
  "rand 0.8.5",
  "serde",
  "serde_json",
