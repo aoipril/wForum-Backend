@@ -3,10 +3,10 @@
 generator client {
   // The `provider` field specifies the generator to be used.
   // In this case, it is set to "cargo run".
-  provider    = "cargo run"
+  provider    = "cargo prisma"
   // The `output` field specifies the output directory for the generated Prisma client.
-  // The client will be generated in the "../../src/prisma/prisma.rs" directory.
-  output      = "../../src/prisma/prisma.rs"
+  // The client will be generated in the "../src/prisma/prisma.rs" directory.
+  output      = "../src/prisma/prisma.rs"
   // The `module_path` field specifies the module path for the generated Prisma client.
   module_path = "generated::db"
 }

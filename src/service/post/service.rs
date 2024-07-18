@@ -187,7 +187,7 @@ impl PostService {
         Ok(Json::from(HistoryBody {
             posts, time_vec,
             post_count: count as usize,
-        }.with_timezone_offset()))
+        }))
     }
 
 

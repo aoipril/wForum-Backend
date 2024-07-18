@@ -27,13 +27,13 @@ impl UsersService {
     // Function to fetch a user by their ID.
     // It takes an authenticated user, the application context, and the Prisma client as parameters.
     // It returns a `Result` with a JSON response containing the user's details or an error.
-    pub async fn fetch_user(
+    pub async fn current_user(
         auth_user: AuthUser,
         ctx: State<BeContext>,
         prisma: PRISMA,
     ) -> Result<Json<UserBody<User>>, EError> {
 
-        tracing::info!("Fetching user: user_id:{}", auth_user.user_id);
+        tracing::info!("Current user: user_id:{}", auth_user.user_id);
 
         let data = prisma
             .user_details().find_unique(user_details::user_id::equals(auth_user.user_id))

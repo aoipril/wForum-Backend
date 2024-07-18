@@ -12,8 +12,6 @@ pub struct BeConfig {
     pub log_level: String,
     // The port on which the backend will run.
     pub backend_port: u16,
-    // The timezone offset in hours.
-    pub tz_east_offset_in_hours: i32,
     // The configuration for JWT.
     pub jwt_config: JwtConfig,
     // The URL for the database.
@@ -39,8 +37,6 @@ impl BeConfig {
             log_level: get_env("RUST_LOG"),
             // Get the backend port from the environment variable.
             backend_port: get_env("BACKEND_PORT").parse().unwrap(),
-            // Get the timezone offset from the environment variable.
-            tz_east_offset_in_hours: get_env("TZ_EAST_OFFSET_IN_HOURS").parse().unwrap(),
             // Initialize the `JwtConfig` struct.
             jwt_config: JwtConfig {
                 // Get the JWT secret from the environment variable.

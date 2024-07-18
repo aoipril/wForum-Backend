@@ -1,8 +1,7 @@
 // Importing the necessary modules and functions.
 use serde::{Deserialize, Serialize};
-use prisma_client_rust::chrono::{FixedOffset, TimeZone};
+use prisma_client_rust::chrono::FixedOffset;
 
-use crate::config::CONTEXT;
 use crate::prisma::prisma::user_details;
 
 
@@ -89,8 +88,7 @@ impl From<user_details::Data> for User {
             email: data.email,
             username: data.username,
             // Convert the creation timestamp to the configured timezone.
-            created_at: FixedOffset::east_opt(3600 * CONTEXT.config.tz_east_offset_in_hours)
-                .unwrap().from_utc_datetime(&data.created_at.naive_utc()),
+            created_at: data.created_at,
             token: None,
         }
     }

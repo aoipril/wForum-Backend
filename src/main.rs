@@ -3,8 +3,8 @@ use std::sync::Arc;
 use anyhow::Context;
 use serde_json::json;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-use ryoxhi_backend_axum::config::{CONFIG, CONTEXT};
-use ryoxhi_backend_axum::prisma::prisma::PrismaClient;
+use wforum_backend::config::{CONFIG, CONTEXT};
+use wforum_backend::prisma::prisma::PrismaClient;
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tower_http::cors::{Any, CorsLayer};
@@ -31,7 +31,7 @@ async fn main() -> anyhow::Result<()> {
         .allow_methods(Any).allow_headers(Any).allow_origin(Any);
 
     // Creating the application with the defined routes and middleware.
-    let app = ryoxhi_backend_axum::service::Router::new()
+    let app = wforum_backend::service::Router::new()
         .layer(cors)
         .layer(Extension(prisma_client))
         .layer(

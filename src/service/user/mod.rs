@@ -19,7 +19,7 @@ impl UsersRouter {
         // Create a new `Router` and define the routes.
         axum::Router::new()
             // Route for fetching the current user's details.
-            .route("/users", get(UsersService::fetch_user))
+            .route("/users", get(UsersService::current_user))
             // Route for logging in a user.
             .route("/users", post(UsersService::login_user))
             // Route for updating the current user's details.

@@ -1,8 +1,7 @@
 // Importing the necessary modules and functions.
 use serde::{Deserialize, Serialize};
-use prisma_client_rust::chrono::{DateTime, FixedOffset, TimeZone};
+use prisma_client_rust::chrono::{DateTime, FixedOffset};
 
-use crate::config::CONTEXT;
 use crate::service::profile::model::Profile;
 use crate::prisma::prisma::{platform_posts, post_comments};
 
@@ -131,21 +130,6 @@ pub struct Comment {
 }
 
 
-// Implementation of the `History` struct.
-impl<T> HistoryBody<T> {
-    pub fn with_timezone_offset(self) -> HistoryBody<T> {
-        HistoryBody {
-            posts: self.posts,
-            time_vec:  self.time_vec.iter().map(|datetime| {
-                FixedOffset::east_opt(3600 * CONTEXT.config.tz_east_offset_in_hours)
-                    .unwrap().from_utc_datetime(&datetime.naive_utc())
-            }).collect(),
-            post_count: self.post_count,
-        }
-    }
-}
-
-
 // Implementation of the `platform_posts::Data` struct.
 impl platform_posts::Data {
     // Function to convert `platform_posts::Data` into a `Post`.
@@ -155,8 +139,7 @@ impl platform_posts::Data {
             title: self.title,
             description: self.description,
             content: self.content,
-            created_at: FixedOffset::east_opt(3600 * CONTEXT.config.tz_east_offset_in_hours)
-                .unwrap().from_utc_datetime(&self.created_at.naive_utc()),
+            created_at: self.created_at,
             liked: like, liked_count: self.like_count,
             author: self.author.unwrap().to_profile(followed, following, blocked, blocking),
         }
@@ -171,8 +154,7 @@ impl post_comments::Data {
         Comment {
             comment_id: self.comment_id,
             content: self.content,
-            created_at: FixedOffset::east_opt(3600 * CONTEXT.config.tz_east_offset_in_hours)
-                .unwrap().from_utc_datetime(&self.created_at.naive_utc()),
+            created_at: self.created_at,
             user: self.user.unwrap().to_profile(followed, following, blocked, blocking),
         }
     }

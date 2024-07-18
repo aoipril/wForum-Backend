@@ -23,9 +23,9 @@ services:
     # This field specifies environment variables for the service.
     # In this case, it sets the PostgreSQL username, password, and database name.
     environment:
-      POSTGRES_USER: ryoxhi
+      POSTGRES_USER: wforum
       POSTGRES_PASSWORD: My5tr0ng%Pa55w0rd
-      POSTGRES_DB: ryoxhi
+      POSTGRES_DB: wforum
     # The `ports` field.
     # This field maps ports between the host and the container.
     # In this case, it maps port 5432 in the container to port 5432 on the host.
